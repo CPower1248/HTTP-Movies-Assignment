@@ -16,7 +16,7 @@ function Movie({ addToSavedList }) {
   };
 
   const routeToUpdate = () => {
-    push(`/movie-update/:${params.id}`)
+    push(`/movie-update/${params.id}`)
   }
 
   const saveMovie = () => {
@@ -31,6 +31,16 @@ function Movie({ addToSavedList }) {
     return <div>Loading movie information...</div>;
   }
 
+  const deleteMovie = () => {
+    axios.delete(`http://localhost:5000/api/movies/${params.id}`)
+      .then(() => {
+        push("/")
+      })
+      .catch(err => {
+        console.log(err)
+      })
+  }
+
   return (
     <div className="save-wrapper">
       <MovieCard movie={movie} />
@@ -39,6 +49,7 @@ function Movie({ addToSavedList }) {
         Save
       </div>
       <button onClick={routeToUpdate}>update</button>
+      <button onClick={deleteMovie}>delete</button>
     </div>
   );
 }
